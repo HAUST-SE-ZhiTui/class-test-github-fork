@@ -1,0 +1,33 @@
+version: '1.0'
+name: test
+displayName: test
+triggers:
+  trigger: auto
+  push:
+    branches:
+      prefix:
+        - ''
+stages:
+  - name: build-test
+    displayName: build-test
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: build@gcc
+        name: build_gcc
+        displayName: build
+        gccVersion: '9.4'
+        commands:
+          - '# 新建build目录，切换到build目录'
+          - 'mkdir build && cd build '
+          - '# 生成Unix平台的makefiles文件并执行构建'
+          - cmake -G 'Unix Makefiles' ../ && make -j
+        artifacts:
+          - name: BUILD_ARTIFACT
+            path:
+              - ./bin
+        caches: []
+        notify: []
+        strategy:
+          retry: '0'
