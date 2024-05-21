@@ -25,9 +25,9 @@ stages:
           - ''
           - make save-test-results
         artifacts:
-          - name: BUILD_ARTIFACT
+          - name: test_results
             path:
-              - ./bin
+              - ./build/test_results.json
         caches: []
         notify: []
         strategy:
