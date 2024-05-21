@@ -19,7 +19,11 @@ stages:
         displayName: build
         gccVersion: '9.4'
         commands:
+          - mkdir build
+          - ''
           - make test-output
+          - ''
+          - make save-test-results
         artifacts:
           - name: BUILD_ARTIFACT
             path:
