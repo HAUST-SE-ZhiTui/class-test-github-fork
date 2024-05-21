@@ -19,10 +19,7 @@ stages:
         displayName: build
         gccVersion: '9.4'
         commands:
-          - '# 新建build目录，切换到build目录'
-          - 'mkdir build && cd build '
-          - '# 生成Unix平台的makefiles文件并执行构建'
-          - cmake -G 'Unix Makefiles' ../ && make -j
+          - make test-output
         artifacts:
           - name: BUILD_ARTIFACT
             path:
