@@ -42,7 +42,7 @@ stages:
           - '# 将更新后的 JSON 写回文件'
           - echo "$updated_json" > "$json_file"
           - ''
-          - curl build/test_results.json -v
+          - cat build/test_results.json
           - ''
         artifacts:
           - name: test_results
