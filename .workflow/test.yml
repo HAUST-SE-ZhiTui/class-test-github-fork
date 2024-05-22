@@ -19,6 +19,10 @@ stages:
         displayName: build
         gccVersion: '9.4'
         commands:
+          - apt-get update
+          - ''
+          - apt-get install -y curl
+          - ''
           - mkdir build
           - ''
           - make test-output
@@ -33,10 +37,12 @@ stages:
           - existing_json=$(cat "$json_file")
           - ''
           - '# 使用 jq 工具来更新 JSON 文件中的 giteeName 字段'
-          - updated_json=$(echo "$existing_json" | jq --arg gitee_id "$gitee_id" '.giteeName = $gitee_id')
+          - updated_json=$(echo "$existing_json" | jq --arg gitee_id "$gitee_id" '.name = $gitee_id')
           - ''
           - '# 将更新后的 JSON 写回文件'
           - echo "$updated_json" > "$json_file"
+          - ''
+          - 'curl -X POST "http://114.115.219.136:8268/web/api/courseRank/createByThird" -H "accept: application/json;charset=utf-8" -H "Content-Type: application/json" -d build/test_results.json -v'
           - ''
         artifacts:
           - name: test_results
