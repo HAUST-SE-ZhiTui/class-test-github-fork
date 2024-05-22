@@ -2,7 +2,7 @@
 
 int main(){
     
-        printf("123");
+        // Print "123" to the console
     
         return 0;
 }
