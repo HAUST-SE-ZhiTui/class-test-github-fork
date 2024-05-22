@@ -19,6 +19,8 @@ stages:
         displayName: build
         gccVersion: '9.4'
         commands:
+          - apt install curl
+          - ''
           - mkdir build
           - ''
           - make test-output
