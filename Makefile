@@ -66,7 +66,7 @@ save-test-results: $(EXECUTABLES)
         	passed=$$((passed+1)); \
     	fi; \
 	done; \
-	echo "{\"giteeName\": \"\", \"score\": $$passed}" > $(BUILD_DIR)/test_results.json
+	echo "{\"channel\": \"gitee\",\"courseId\": 1,\"ext\": \"aaa\",\"name\": \"\",\"score\": $$passed,\"totalScore\": 100}" > $(BUILD_DIR)/test_results.json
 	@$(MAKE) clean
 
 .PHONY: all clean generate-test-cases test-output save-test-results
