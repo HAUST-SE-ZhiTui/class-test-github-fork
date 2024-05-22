@@ -19,7 +19,7 @@ stages:
         displayName: build
         gccVersion: '9.4'
         commands:
-          - apt install curl
+          - apt install -y curl
           - ''
           - mkdir build
           - ''
