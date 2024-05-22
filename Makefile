@@ -57,7 +57,6 @@ save-test-results: $(EXECUTABLES)
 	@total=0; \
 	passed=0; \
 	> $(BUILD_DIR)/test_results.json; \
-	echo "[" > $(BUILD_DIR)/test_results.json; \
 	for exe in $(EXECUTABLES); do \
     	exercise_name=$$(basename $$exe); \
     	expected=$$(cat $(TEST_DIR)/$${exercise_name}.out); \
@@ -65,22 +64,9 @@ save-test-results: $(EXECUTABLES)
     	total=$$((total+1)); \
     	if [ "$$expected" = "$$actual" ]; then \
         	passed=$$((passed+1)); \
-        	result="passed"; \
-    	else \
-        	result="failed"; \
-    	fi; \
-    	echo "  {" >> $(BUILD_DIR)/test_results.json; \
-    	echo "    \"exercise\": \"$${exercise_name}\"," >> $(BUILD_DIR)/test_results.json; \
-    	echo "    \"expected\": \"$${expected}\"," >> $(BUILD_DIR)/test_results.json; \
-    	echo "    \"actual\": \"$${actual}\"," >> $(BUILD_DIR)/test_results.json; \
-    	echo "    \"result\": \"$${result}\"" >> $(BUILD_DIR)/test_results.json; \
-    	echo "  }" >> $(BUILD_DIR)/test_results.json; \
-    	if [ "$$exe" != "$$(lastword $(EXECUTABLES))" ]; then \
-        	echo "," >> $(BUILD_DIR)/test_results.json; \
     	fi; \
 	done; \
-	echo "]" >> $(BUILD_DIR)/test_results.json; \
-	echo "{\"total_tests\": $$total, \"passed_tests\": $$passed}" >> $(BUILD_DIR)/test_results.json
+	echo "{\"giteeName\": \"\", \"score\": $$passed}" > $(BUILD_DIR)/test_results.json
 	@$(MAKE) clean
 
 .PHONY: all clean generate-test-cases test-output save-test-results
