@@ -66,7 +66,7 @@ save-test-results: $(EXECUTABLES)
         	passed=$$((passed+1)); \
     	fi; \
 	done; \
-	echo "{\"channel\": \"github\",\"courseId\": 1558,\"ext\": \"aaa\",\"name\": \"\",\"score\": $$passed,\"totalScore\": 40}" > $(BUILD_DIR)/test_results.json
+	echo "{\"channel\": \"github\",\"courseId\": 1558,\"ext\": \"aaa\",\"name\": \"\",\"score\": $$passed,\"totalScore\": 5}" > $(BUILD_DIR)/test_results.json
 	@$(MAKE) clean
 
 .PHONY: all clean generate-test-cases test-output save-test-results

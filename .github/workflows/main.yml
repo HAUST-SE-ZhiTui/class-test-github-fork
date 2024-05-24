@@ -41,7 +41,7 @@ jobs:
     - name: Upload test results JSON
       run: |
         cat build/test_results.json
-        curl -X POST "http://114.115.219.136:8268/web/api/courseRank/createByThird" -H "accept: application/json;charset=utf-8" -H "Content-Type: application/json" -d "$(cat build/test_results.json)" -v
+        curl -X POST "https://api.learningcamp.cn/web/api/courseRank/createByThird" -H "accept: application/json;charset=utf-8" -H "Content-Type: application/json" -d "$(cat build/test_results.json)" -v
 
     - name: Upload test results artifact
       uses: actions/upload-artifact@v2
