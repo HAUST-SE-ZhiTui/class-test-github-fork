@@ -1,0 +1,50 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up GCC
+      uses: docker://gcc:9.4
+
+    - name: Update apt cache
+      run: sudo apt-get update
+
+    - name: Install curl
+      run: sudo apt-get install -y curl
+
+    - name: Prepare build directory
+      run: mkdir build
+
+    - name: Build and test
+      run: |
+        make test-output
+        make save-test-results
+
+    - name: Update test results JSON
+      run: |
+        github_id="${{ github.actor }}"
+        json_file="build/test_results.json"
+        existing_json=$(cat "$json_file")
+        updated_json=$(echo "$existing_json" | jq --arg github_id "$github_id" '.name = $github_id')
+        echo "$updated_json" > "$json_file"
+
+    - name: Upload test results JSON
+      run: |
+        cat build/test_results.json
+        curl -X POST "http://114.115.219.136:8268/web/api/courseRank/createByThird" -H "accept: application/json;charset=utf-8" -H "Content-Type: application/json" -d "$(cat build/test_results.json)" -v
+
+    - name: Upload test results artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: test_results
+        path: build/test_results.json
